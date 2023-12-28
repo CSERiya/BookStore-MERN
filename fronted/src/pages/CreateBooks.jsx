@@ -9,6 +9,7 @@ const CreateBooks = () => {
   const[title, setTitle]=useState('');
   const[author, setAuthor]= useState('');
   const[publishYear, setPublishYear]=useState('');
+  const [description, setDescription] = useState(''); 
   const[loading, setLoading]=useState(false);
   const navigate=useNavigate();
   const {enqueueSnackbar}=useSnackbar();
@@ -18,6 +19,7 @@ const data={
   title,
   author,
   publishYear,
+  description,
 };
 setLoading(true);
 axios.post('http://localhost:5555/books',data)
@@ -41,7 +43,7 @@ axios.post('http://localhost:5555/books',data)
       {loading? <Spinner/>:''}
       <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Title</label>
+          <label className='text-xl mr-4 text-gray-500'>Title<span className='text-red-500'>*</span></label>
           <input
           type='text'
           value={title}
@@ -50,7 +52,7 @@ axios.post('http://localhost:5555/books',data)
           />
         </div>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Author</label>
+          <label className='text-xl mr-4 text-gray-500'>Author<span className='text-red-500'>*</span></label>
           <input
           type='text'
           value={author}
@@ -59,7 +61,7 @@ axios.post('http://localhost:5555/books',data)
           />
         </div>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Publish Year</label>
+          <label className='text-xl mr-4 text-gray-500'>Publish Year<span className='text-red-500'>*</span></label>
           <input
           type='number'
           value={publishYear}
@@ -67,10 +69,23 @@ axios.post('http://localhost:5555/books',data)
           className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
+         {/* Added description input */}
+         <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Description</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}placeholder='Enter a description...'
+            className='border-2 border-gray-500 px-4 py-2 w-full'
+          />
+        </div>
+        <p className="text-gray-500 text-sm mt-2">
+          Fields marked with <span className='text-red-500'>*</span> are mandatory.
+        </p>
         <button className='p-2 bg-sky-300 m-8' onClick={handleSaveBook}>
           Save
         </button>
       </div>
+     
     </div>
   )
 }
