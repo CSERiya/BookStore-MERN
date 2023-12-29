@@ -19,7 +19,7 @@ const data={
   title,
   author,
   publishYear,
-  description,
+  ...(description && { description }),
 };
 setLoading(true);
 axios.post('http://localhost:5555/books',data)
@@ -47,7 +47,7 @@ axios.post('http://localhost:5555/books',data)
           <input
           type='text'
           value={title}
-          onChange={(e)=>setTitle(e.target.value)}
+          onChange={(e)=>setTitle(e.target.value)}placeholder='Please enter texts only'
           className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
@@ -56,7 +56,7 @@ axios.post('http://localhost:5555/books',data)
           <input
           type='text'
           value={author}
-          onChange={(e)=>setAuthor(e.target.value)}
+          onChange={(e)=>setAuthor(e.target.value)}placeholder='Please enter texts only'
           className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
@@ -65,7 +65,7 @@ axios.post('http://localhost:5555/books',data)
           <input
           type='number'
           value={publishYear}
-          onChange={(e)=>setPublishYear(e.target.value)}
+          onChange={(e)=>setPublishYear(e.target.value)}placeholder='Please enter numbers only'
           className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
@@ -74,7 +74,7 @@ axios.post('http://localhost:5555/books',data)
           <label className='text-xl mr-4 text-gray-500'>Description</label>
           <textarea
             value={description}
-            onChange={(e) => setDescription(e.target.value)}placeholder='Enter a description...'
+            onChange={(e) => setDescription(e.target.value)}placeholder='Enter a description...(optional)'
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>

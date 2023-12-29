@@ -3,33 +3,37 @@ import {Book} from '../models/bookModel.js';
 const router = express.Router()
 
 // Route for add the details
-router.post('/',async(request,response)=>{
-    try{
-    if(
-        !request.body.title || 
+router.post('/', async (request, response) => {
+    try {
+      if (
+        !request.body.title ||
         !request.body.author ||
-        !request.body.publishYear||
-        !request.body.description
-    ){
+        !request.body.publishYear
+      ) {
         return response.status(400).send({
-            message:'Send all required fields: title, author, publishYear',
+          message: 'Send all required fields: title, author, publishYear',
         });
-    }
-    const newBook={
-        title:request.body.title,
+      }
+  
+      // Create new book object
+      const newBook = {
+        title: request.body.title,
         author: request.body.author,
         publishYear: request.body.publishYear,
-        description: request.body.description,
-    };
-    
-    const book=await Book.create(newBook);
-    return response.status(201).send(book);
+      };
+  
+      // Include description if it exists
+      if (request.body.description) {
+        newBook.description = request.body.description;
+      }
+  
+      const book = await Book.create(newBook);
+      return response.status(201).send(book);
+    } catch (error) {
+      console.log(error.message);
+      response.status(500).send({ message: error.message });
     }
-    catch(error){
-    console.log(error.message);
-    response.status(500).send({message:error.message});
-    }
-    });
+  });
     
     // Route to get all the created books
     router.get('/',async(request,response)=>{
