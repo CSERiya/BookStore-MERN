@@ -43,7 +43,7 @@ const BookSingleCard = ({book}) => {
                     showModal && (
                         <BookModal book={book} onClose={()=>setShowModal(false)}/>
                     )
-                }
+                    }
                 </div>
   )
 }

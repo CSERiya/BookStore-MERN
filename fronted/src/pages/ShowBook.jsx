@@ -13,7 +13,7 @@ const ShowBook = () => {
     setLoading(true);
     if (id) {
       axios
-        .get(`http://localhost:5555/books/${id}`)
+        .get(`https://bookstore-mern-server.vercel.app/books/${id}`)
         .then((response) => {
           setBook(response.data);
           setLoading(false);
