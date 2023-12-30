@@ -22,4 +22,6 @@ required:false,
     timestamps:true,
 }
 );
-export const Book = mongoose.model('Cat', bookSchema); 
+// export const Book = mongoose.model('Cat', bookSchema); 
+export const Book = mongoose.model('Cat', bookSchema);
+

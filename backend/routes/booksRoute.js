@@ -5,10 +5,21 @@ const router = express.Router()
 // Route for add the details
 router.post('/', async (request, response) => {
     try {
+          console.log('Received Request Data:', request.body);
+      // if (
+      //   !request.body.title ||
+      //   !request.body.author ||
+      //   !request.body.publishYear
+        
+      // ) {
+      //   return response.status(400).send({
+      //     message: 'Send all required fields: title, author, publishYear',
+      //   });
+      // }
       if (
-        !request.body.title ||
-        !request.body.author ||
-        !request.body.publishYear
+        request.body.title === undefined ||
+        request.body.author === undefined ||
+        request.body.publishYear === undefined
       ) {
         return response.status(400).send({
           message: 'Send all required fields: title, author, publishYear',
@@ -16,39 +27,28 @@ router.post('/', async (request, response) => {
       }
   
       // Create new book object
-      const newBook = {
-        title: request.body.title,
-        author: request.body.author,
-        publishYear: request.body.publishYear,
-      };
+      // Create new book object
+const newBook = {
+  title: request.body.title,
+  author: request.body.author,
+  publishYear: request.body.publishYear,
+  // description: request.body.description || 'hii', // Set default value if not present
+};
+
   
       // Include description if it exists
       if (request.body.description) {
         newBook.description = request.body.description;
       }
-  
       const book = await Book.create(newBook);
-      return response.status(201).send(book);
+      // return response.status(201).send(book);
+      return response.status(201).json(book);
     } catch (error) {
       console.log(error.message);
       response.status(500).send({ message: error.message });
     }
   });
-    
-    // Route to get all the created books
-    router.get('/',async(request,response)=>{
-        try{
-            const books=await Book.find({});
-            return response.status(200).json({
-                count:books.length,
-                data:books
-            });
-        }
-        catch(error){
-            console.log(error.message);
-            response.status(500).send({message:error.message});
-        }
-    })
+
     
     // Route for Get One Book from the database by ID
     router.get('/:id', async (request, response) => {
