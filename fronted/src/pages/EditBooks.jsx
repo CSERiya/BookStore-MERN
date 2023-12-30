@@ -102,4 +102,3 @@ axios.put(`https://bookstore-mern-server.vercel.app/books/${id}`,data)
 }
 
 export default EditBooks
-

@@ -14,57 +14,27 @@ const CreateBooks = () => {
   const navigate=useNavigate();
   const {enqueueSnackbar}=useSnackbar();
 
-//   const handleSaveBook=()=>{
-// const data={
-//   title,
-//   author,
-//   publishYear,
-//   ...(description && { description }),
-// };
-// setLoading(true);
-// axios.post('https://bookstore-mern-server.vercel.app/books',data)
-// .then(()=>{
-//   setLoading(false);
-//   enqueueSnackbar('Book created successfully', {variant:'success'})
-//   navigate('/');
-// })
-// .catch((error)=>{
-//   setLoading(false);
-//   // alert('An error happened. Please Check console');
-//   enqueueSnackbar('Error', {variant:'error'});
-//   console.log(error);
-// });
-// };
-const handleSaveBook = () => {
-  const data = {
-    title,
-    author,
-    publishYear:Number(publishYear),
-     ...(description && { description }), // Commenting this out for now
-  };
-
-  console.log('Request Data:', data);
-
-  setLoading(true);
-  const headers = {
-    'Content-Type': 'application/json',
-    // Add other headers if needed
-  };
-  
-  axios.post('https://bookstore-mern-server.vercel.app/books', data)
-    .then(response => {
-      setLoading(false);
-      console.log('Success Response:', response.data);
-      enqueueSnackbar('Book created successfully', { variant: 'success' });
-      navigate('/');
-    })
-    .catch((error) => {
-      setLoading(false);
-      console.log('Error Response:', error.response.data);
-      enqueueSnackbar('Error', { variant: 'error' });
-      console.log(error);
-    });
+  const handleSaveBook=()=>{
+const data={
+  title,
+  author,
+  publishYear,
+  ...(description && { description }),
 };
+setLoading(true);
+axios.post('https://bookstore-mern-server.vercel.app/books',data)
+.then(()=>{
+  setLoading(false);
+  enqueueSnackbar('Book created successfully', {variant:'success'})
+  navigate('/');
+})
+.catch((error)=>{
+  setLoading(false);
+  // alert('An error happened. Please Check console');
+  enqueueSnackbar('Error', {variant:'error'});
+  console.log(error);
+});
+  };
 
   return (
     <div className='p-4'>
@@ -101,10 +71,10 @@ const handleSaveBook = () => {
         </div>
          {/* Added description input */}
          <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Description</label>
+          <label className='text-xl mr-4 text-gray-500'>Description<span className='text-red-500'>*</span></label>
           <textarea
             value={description}
-            onChange={(e) => setDescription(e.target.value)}placeholder='Enter a description...(optional)'
+            onChange={(e) => setDescription(e.target.value)}placeholder='Enter a description...'
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
